@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mulax Prime - Professional Tech Portfolio</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
+  
+  <!-- AOS Animation CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  
+  <!-- Font Awesome for icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous" defer></script>
+  
+  <!-- Your CSS (make sure style.css includes dark mode styles below) -->
+  <link rel="stylesheet" href="style.css" />
+  
+  <style>
+    /* Hide the audio player */
+    audio#bg-music {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container header-content">
+      <div class="logo">Mulax Prime</div>
+      <nav>
+        <ul>
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#achievements">Achievements</a></li>
+          <li><a href="#mulax-xmd-status">MULAA XMD</a></li>
+          <li><a href="#features">Services</a></li>
+          <li><a href="#projects">Portfolio</a></li>
+          <li><a href="#resources">Resources</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <button class="mobile-nav-toggle" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+      
+      <!-- Dark/Light Mode Toggle -->
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+    </div>
+  </header>
+
+  <section id="hero" class="hero-section">
+    <div class="container hero-content" data-aos="fade-up" data-aos-duration="1000">
+      <h1>Innovative Solutions for Tomorrow's Challenges</h1>
+      <p>Transforming complex ideas into seamless digital experiences. Your vision, our expertise.</p>
+      <a href="#contact" class="btn primary-btn" data-aos="fade-up" data-aos-delay="500">Get in Touch</a>
+      <a href="#projects" class="btn secondary-btn" data-aos="fade-up" data-aos-delay="700">View Portfolio</a>
+
+      <!-- Play Music Button -->
+      <button id="play-music-btn" class="btn primary-btn" style="margin-top: 20px;" data-aos="fade-up" data-aos-delay="900">
+        ▶️ Play Background Music
+      </button>
+    </div>
+  </section>
+
+  <section id="about" class="section about-section bg-white">
+    <div class="container">
+      <h2 data-aos="fade-up">About Mulax Prime</h2>
+      <div class="about-grid">
+        <div class="about-text" data-aos="fade-right">
+          <p>Mulax Prime is at the forefront of technological innovation, specializing in crafting bespoke software solutions, dynamic web platforms, and intuitive mobile applications. Our approach is rooted in understanding your unique challenges and delivering robust, scalable, and user-centric systems that drive growth.</p>
+          <p>With a foundation built on precision and a passion for pushing boundaries, we consistently deliver projects that not only meet but exceed expectations, fostering long-term partnerships and tangible success.</p>
+        </div>
+        <div class="about-image" data-aos="fade-left">
+          <img src="images/summer.jpg" alt="Mulax Prime Team collaborating" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="achievements" class="section achievements-section bg-light-grey">
+    <div class="container">
+      <h2 data-aos="fade-up">Our Track Record</h2>
+      <div class="stats-grid">
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
+          <span class="count-number" data-target="150">15</span>+
+          <p class="stat-label">Projects Completed</p>
+        </div>
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
+          <span class="count-number" data-target="10">5</span>+
+          <p class="stat-label">Years of Experience</p>
+        </div>
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
+          <span class="count-number" data-target="50">7</span>+
+          <p class="stat-label">Satisfied Clients</p>
+        </div>
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="400">
+          <span class="count-number" data-target="99">0</span>%
+          <p class="stat-label">Client Retention</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="mulax-xmd-status" class="section mulaa-xmd-section bg-white">
+    <div class="container">
+      <h2 data-aos="fade-up">Project Update: MULAA XMD</h2>
+      <p class="xmd-intro" data-aos="fade-up" data-aos-delay="100">Our exclusive cross-module deployment system is currently in active development.</p>
+
+      <div class="xmd-card" data-aos="zoom-in" data-aos-delay="200">
+        <span class="ribbon">Now Developing</span>
+        <div class="xmd-details">
+          <p><strong>✅ Codename:</strong> MULAA XMD</p>
+          <p><strong>⚙ Phase:</strong> Onboarding & architecture design</p>
+          <p><strong>🚧 Status:</strong> 🚀 Ongoing – internal testing underway</p>
+          <p class="xmd-purpose"><strong>🧠 Purpose:</strong> Connect voice messaging, bot logic, and canvas creativity into one dynamic experience.</p>
+        </div>
+        <div class="xmd-visuals">
+          <div class="progress-bar-container">
+            <div class="progress-bar"></div>
+            <span>Building the future of multi-modal intelligence</span>
+          </div>
+          <div class="floating-icons">
+            <span>🔊</span>
+            <span>📊</span>
+            <span>🧠</span>
+            <span>🧩</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="section features-section bg-light-grey">
+    <div class="container">
+      <h2 data-aos="fade-up">Our Expertise</h2>
+      <div class="feature-grid">
+        <div class="feature-item" data-aos="zoom-in" data-aos-delay="100">
+          <i class="fas fa-code"></i>
+          <h3>Custom Software Development</h3>
+          <p>Tailored applications built to streamline your operations and enhance efficiency.</p>
+        </div>
+        <div class="feature-item" data-aos="zoom-in" data-aos-delay="200">
+          <i class="fas fa-desktop"></i>
+          <h3>Web Development & Design</h3>
+          <p>Creating responsive, high-performance websites that captivate and convert.</p>
+        </div>
+        <div class="feature-item" data-aos="zoom-in" data-aos-delay="300">
+          <i class="fas fa-mobile-alt"></i>
+          <h3>Mobile App Solutions</h3>
+          <p>Intuitive and engaging mobile experiences for iOS and Android platforms.</p>
+        </div>
+        <div class="feature-item" data-aos="zoom-in" data-aos-delay="400">
+          <i class="fas fa-cloud"></i>
+          <h3>Cloud Infrastructure</h3>
+          <p>Scalable and secure cloud solutions for seamless data management and deployment.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="section projects-section bg-white">
+    <div class="container">
+      <h2 data-aos="fade-up">Our Portfolio</h2>
+      <div class="project-grid">
+        <div class="project-item" data-aos="fade-up" data-aos-delay="100">
+          <img src="images/image.png" alt="Project 1 CRM System" />
+          <div class="project-content">
+            <h3>A Tiny Game</h3>
+            <p>Developed a game to help young kids avoid boredom.</p>
+            <ul>
+              <li><strong>Tech:</strong> React, Node.js, PostgreSQL</li>
+              <li><strong>Role:</strong> Lead Developer</li>
+            </ul>
+            <a href="#" class="project-link">Learn More <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+        <div class="project-item" data-aos="fade-up" data-aos-delay="200">
+          <img src="images/HELLO.png" alt="Project 2 E-commerce Platform" />
+          <div class="project-content">
+            <h3>Focus Zone</h3>
+            <p>Designed and built a scalable learning platform for grade 12 students.</p>
+            <ul>
+              <li><strong>Tech:</strong> Vue.js, Django, AWS</li>
+              <li><strong>Role:</strong> Full-stack Developer</li>
+            </ul>
+            <a href="#" class="project-link">Learn More <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+        <div class="project-item" data-aos="fade-up" data-aos-delay="300">
+          <img src="https://via.placeholder.com/800x500/B0E0E6/333333?text=Project+3+Mobile+App" alt="Project 3 Mobile App" />
+          <div class="project-content">
+            <h3>Health & Fitness Mobile App</h3>
+            <p>Created a cross-platform mobile app for personalized fitness tracking and nutrition planning.</p>
+            <ul>
+              <li><strong>Tech:</strong> React Native, Firebase</li>
+              <li><strong>Role:</strong> Mobile Developer</li>
+            </ul>
+            <a href="#" class="project-link">Learn More <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!-- Footer -->
+<footer class="footer">
+  <div class="container footer-content">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <h3>Mulax Prime</h3>
+        <p>Innovative tech solutions tailored to your business. Delivering scalable, secure, and user-centric software to empower your growth.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Portfolio</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Contact Us</h4>
+        <p>Email: <a href="mailto:amantlempaekae@gmail.com">amantlempaekae@gmail.com</a></p>
+        <p>Phone: <a href="tel:+267 76660902">+267 76660902</a></p>
+        <div class="social-icons">
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 Mulax Prime. All rights reserved.</p>
+  </div>
+</footer>
+
+
+  <!-- Hidden Audio for Background Music -->
+  <audio id="bg-music" loop>
+    <source src="audio/technologic.mp3" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- AOS Animation JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <script>
+    // Initialize AOS animations
+    AOS.init();
+
+    // Dark/Light Mode Toggle
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    themeToggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      if(document.body.classList.contains('dark-mode')){
+        themeToggleBtn.textContent = '☀️';
+      } else {
+        themeToggleBtn.textContent = '🌙';
+      }
+    });
+
+    // Play background music on button click (to bypass autoplay restrictions)
+    const playMusicBtn = document.getElementById('play-music-btn');
+    const bgMusic = document.getElementById('bg-music');
+
+    playMusicBtn.addEventListener('click', () => {
+      if (bgMusic.paused) {
+        bgMusic.play().then(() => {
+          playMusicBtn.textContent = '⏸️ Pause Background Music';
+        }).catch(() => {
+          alert('Unable to play audio. Please try interacting with the page.');
+        });
+      } else {
+        bgMusic.pause();
+        playMusicBtn.textContent = '▶️ Play Background Music';
+      }
+    });
+  </script>
+
+</body>
+</html>
