@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mulax Prime — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Syne:wght@400;500;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #111118;
+    --bg3: #16161f;
+    --accent: #e8ff47;
+    --accent2: #47c8ff;
+    --accent3: #ff6b47;
+    --text: #f0f0f8;
+    --muted: #7070a0;
+    --border: rgba(255,255,255,0.07);
+    --card: rgba(255,255,255,0.03);
+    --glow: 0 0 60px rgba(232,255,71,0.12);
+    --radius: 16px;
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ─── NOISE OVERLAY ──────────────────────── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.6;
+  }
+
+  /* ─── CURSOR ──────────────────────────────── */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 99999;
+    transition: transform 0.15s ease, width 0.2s, height 0.2s;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1.5px solid rgba(232,255,71,0.4);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 99998;
+    transition: all 0.08s linear;
+    transform: translate(-50%,-50%);
+  }
+
+  /* ─── SCROLLBAR ───────────────────────────── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+
+  /* ─── NAV ─────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 20px 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    backdrop-filter: blur(20px) saturate(1.5);
+    background: rgba(10,10,15,0.7);
+    border-bottom: 1px solid var(--border);
+    transition: padding 0.3s ease;
+  }
+  nav.scrolled { padding: 14px 60px; }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: -0.03em;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links {
+    display: flex; gap: 36px; list-style: none;
+  }
+  .nav-links a {
+    color: var(--muted); text-decoration: none;
+    font-size: 0.85rem; font-weight: 500; letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 1.5px; background: var(--accent);
+    transition: width 0.25s ease;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-actions { display: flex; gap: 12px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 22px;
+    border-radius: 100px;
+    font-family: var(--font-body);
+    font-size: 0.85rem; font-weight: 500;
+    cursor: pointer; transition: all 0.22s ease;
+    border: none; text-decoration: none;
+  }
+  .btn-outline {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-accent {
+    background: var(--accent);
+    color: #0a0a0f;
+    font-weight: 700;
+  }
+  .btn-accent:hover { background: #f5ff6e; transform: translateY(-1px); box-shadow: 0 8px 30px rgba(232,255,71,0.25); }
+
+  /* ─── HERO ────────────────────────────────── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 120px 60px 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero-grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(232,255,71,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(232,255,71,0.03) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black, transparent);
+  }
+  .hero-glow {
+    position: absolute; width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(232,255,71,0.06) 0%, transparent 70%);
+    top: 50%; left: 50%; transform: translate(-50%,-60%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(232,255,71,0.08);
+    border: 1px solid rgba(232,255,71,0.2);
+    color: var(--accent);
+    padding: 6px 16px; border-radius: 100px;
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; width: fit-content;
+    margin-bottom: 28px;
+    animation: fadeSlideUp 0.6s ease both;
+  }
+  .hero-tag::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity:1; transform: scale(1); }
+    50% { opacity:0.5; transform: scale(1.4); }
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(3.2rem, 7vw, 7rem);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.04em;
+    margin-bottom: 28px;
+    max-width: 900px;
+    animation: fadeSlideUp 0.7s 0.1s ease both;
+  }
+  .hero-title .line2 { color: var(--accent); display: block; }
+  .hero-title .line3 { color: var(--muted); display: block; font-weight: 400; font-style: italic; }
+  .hero-sub {
+    max-width: 520px;
+    color: var(--muted); font-size: 1.05rem; line-height: 1.7;
+    margin-bottom: 44px;
+    animation: fadeSlideUp 0.7s 0.2s ease both;
+  }
+  .hero-actions {
+    display: flex; gap: 14px; flex-wrap: wrap;
+    animation: fadeSlideUp 0.7s 0.3s ease both;
+  }
+  .btn-lg { padding: 15px 34px; font-size: 0.95rem; }
+  .hero-stats {
+    position: absolute; right: 60px; top: 50%;
+    transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 32px;
+    animation: fadeSlideUp 0.8s 0.4s ease both;
+  }
+  .stat-item { text-align: right; }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 2.8rem; font-weight: 800;
+    color: var(--text); line-height: 1;
+    display: block;
+  }
+  .stat-label {
+    font-size: 0.75rem; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--muted);
+  }
+  .stat-accent { color: var(--accent); }
+  .scroll-hint {
+    position: absolute; bottom: 36px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--muted);
+    animation: fadeSlideUp 1s 0.8s ease both;
+  }
+  .scroll-line {
+    width: 1px; height: 48px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    animation: scrollLine 2s infinite;
+  }
+  @keyframes scrollLine {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    51% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  /* ─── ABOUT ───────────────────────────────── */
+  #about {
+    padding: 120px 60px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 100px;
+    align-items: center;
+    position: relative;
+  }
+  .about-img-wrap {
+    position: relative;
+  }
+  .about-img-frame {
+    width: 100%; aspect-ratio: 4/5;
+    background: var(--bg3);
+    border-radius: 24px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    position: relative;
+  }
+  .about-img-placeholder {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 12px;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  .about-img-placeholder svg { width: 48px; height: 48px; opacity: 0.3; }
+  .about-img-frame::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(232,255,71,0.05), transparent 60%);
+  }
+  .about-corner {
+    position: absolute; bottom: -24px; right: -24px;
+    width: 140px; padding: 20px;
+    background: var(--accent);
+    border-radius: 16px;
+    color: #0a0a0f;
+  }
+  .about-corner .num {
+    font-family: var(--font-display);
+    font-size: 2.4rem; font-weight: 800; line-height: 1; display: block;
+  }
+  .about-corner .lbl { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+  .section-tag {
+    font-size: 0.75rem; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--accent);
+    font-weight: 600; margin-bottom: 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-tag::before {
+    content: ''; flex-shrink: 0;
+    width: 28px; height: 1.5px; background: var(--accent);
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.5vw, 3.2rem);
+    font-weight: 800; line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 22px;
+  }
+  .about-bio {
+    color: var(--muted); line-height: 1.8;
+    margin-bottom: 36px;
+  }
+  .about-bio p { margin-bottom: 14px; }
+  .skills-list {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 36px;
+  }
+  .skill-tag {
+    padding: 6px 14px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 0.8rem; color: var(--text);
+    transition: all 0.2s;
+  }
+  .skill-tag:hover {
+    border-color: var(--accent); color: var(--accent);
+    background: rgba(232,255,71,0.05);
+  }
+
+  /* ─── SERVICES ────────────────────────────── */
+  #services {
+    padding: 120px 60px;
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .section-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 60px;
+  }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  .service-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 36px;
+    position: relative; overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: default;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(232,255,71,0.04), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .service-card:hover { border-color: rgba(232,255,71,0.3); transform: translateY(-4px); box-shadow: var(--glow); }
+  .service-card:hover::before { opacity: 1; }
+  .service-icon {
+    width: 52px; height: 52px;
+    background: rgba(232,255,71,0.08);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 22px;
+    font-size: 1.5rem;
+  }
+  .service-num {
+    position: absolute; top: 28px; right: 28px;
+    font-family: var(--font-display);
+    font-size: 3.5rem; font-weight: 800;
+    color: rgba(255,255,255,0.03);
+    line-height: 1;
+  }
+  .service-name {
+    font-family: var(--font-display);
+    font-size: 1.2rem; font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .service-desc { color: var(--muted); font-size: 0.9rem; line-height: 1.7; }
+
+  /* ─── PORTFOLIO ───────────────────────────── */
+  #portfolio { padding: 120px 60px; }
+  .portfolio-filter {
+    display: flex; gap: 8px; margin-bottom: 44px; flex-wrap: wrap;
+  }
+  .filter-btn {
+    padding: 8px 18px; border-radius: 100px;
+    border: 1px solid var(--border);
+    background: transparent; color: var(--muted);
+    font-family: var(--font-body);
+    font-size: 0.82rem; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .filter-btn.active, .filter-btn:hover {
+    background: var(--accent); color: #0a0a0f;
+    border-color: var(--accent); font-weight: 700;
+  }
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto;
+    gap: 20px;
+  }
+  .project-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.4s ease;
+    cursor: pointer;
+  }
+  .project-card:hover { transform: translateY(-6px); border-color: rgba(232,255,71,0.25); box-shadow: var(--glow); }
+  .project-card:nth-child(1) { grid-column: span 7; }
+  .project-card:nth-child(2) { grid-column: span 5; }
+  .project-card:nth-child(3) { grid-column: span 4; }
+  .project-card:nth-child(4) { grid-column: span 8; }
+  .project-card:nth-child(5) { grid-column: span 6; }
+  .project-card:nth-child(6) { grid-column: span 6; }
+  .project-thumb {
+    aspect-ratio: 16/9;
+    background: var(--bg2);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .project-thumb-placeholder {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 10px; color: var(--muted); font-size: 0.8rem;
+  }
+  .project-thumb-placeholder svg { width: 36px; height: 36px; opacity: 0.2; }
+  .project-overlay {
+    position: absolute; inset: 0;
+    background: rgba(10,10,15,0.85);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .project-card:hover .project-overlay { opacity: 1; }
+  .view-btn {
+    padding: 10px 24px;
+    background: var(--accent); color: #0a0a0f;
+    border-radius: 100px; font-weight: 700;
+    font-size: 0.82rem; text-decoration: none;
+    transform: translateY(8px);
+    transition: transform 0.3s;
+    display: inline-block;
+  }
+  .project-card:hover .view-btn { transform: translateY(0); }
+  .project-info { padding: 22px 24px; }
+  .project-cats {
+    display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap;
+  }
+  .project-cat {
+    padding: 3px 10px; background: rgba(232,255,71,0.07);
+    border: 1px solid rgba(232,255,71,0.15);
+    border-radius: 100px; font-size: 0.7rem;
+    color: var(--accent); text-transform: uppercase; letter-spacing: 0.07em;
+  }
+  .project-name {
+    font-family: var(--font-display);
+    font-size: 1.1rem; font-weight: 700; margin-bottom: 6px;
+  }
+  .project-brief { color: var(--muted); font-size: 0.85rem; }
+
+  /* ─── EXPERIENCE ──────────────────────────── */
+  #experience { padding: 120px 60px; background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .timeline {
+    position: relative; padding-left: 40px; max-width: 800px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 0; top: 8px; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 52px;
+    padding-left: 32px;
+    opacity: 0; transform: translateX(-20px);
+    transition: all 0.5s ease;
+  }
+  .timeline-item.visible { opacity: 1; transform: translateX(0); }
+  .timeline-dot {
+    position: absolute; left: -44px; top: 6px;
+    width: 10px; height: 10px;
+    background: var(--accent); border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(232,255,71,0.15);
+  }
+  .timeline-period {
+    font-size: 0.75rem; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--accent);
+    font-weight: 600; margin-bottom: 8px;
+  }
+  .timeline-role {
+    font-family: var(--font-display);
+    font-size: 1.25rem; font-weight: 700; margin-bottom: 4px;
+  }
+  .timeline-company {
+    color: var(--muted); font-size: 0.9rem; margin-bottom: 12px;
+  }
+  .timeline-desc { color: var(--muted); font-size: 0.9rem; line-height: 1.7; }
+
+  /* ─── TESTIMONIALS ────────────────────────── */
+  #testimonials { padding: 120px 60px; }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .testimonial-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    transition: all 0.3s;
+  }
+  .testimonial-card:hover { border-color: rgba(232,255,71,0.2); transform: translateY(-3px); }
+  .t-quote {
+    font-size: 2.5rem; color: var(--accent); line-height: 1;
+    margin-bottom: 14px; font-family: Georgia, serif;
+  }
+  .t-text {
+    color: var(--muted); font-size: 0.92rem; line-height: 1.8;
+    margin-bottom: 24px; font-style: italic;
+  }
+  .t-author { display: flex; align-items: center; gap: 12px; }
+  .t-avatar {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: var(--bg3); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; font-weight: 700;
+    color: var(--accent);
+    font-family: var(--font-display);
+  }
+  .t-name { font-weight: 600; font-size: 0.9rem; }
+  .t-title { color: var(--muted); font-size: 0.78rem; }
+  .t-stars { color: var(--accent); font-size: 0.85rem; margin-bottom: 2px; }
+
+  /* ─── CONTACT ─────────────────────────────── */
+  #contact {
+    padding: 120px 60px;
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+  }
+  .contact-wrap {
+    display: grid; grid-template-columns: 1fr 1.3fr; gap: 80px;
+    align-items: start;
+  }
+  .contact-info-list { margin-top: 36px; display: flex; flex-direction: column; gap: 20px; }
+  .contact-info-item {
+    display: flex; align-items: center; gap: 16px;
+    padding: 18px 22px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; transition: all 0.2s;
+  }
+  .contact-info-item:hover { border-color: rgba(232,255,71,0.2); }
+  .ci-icon {
+    width: 40px; height: 40px; flex-shrink: 0;
+    background: rgba(232,255,71,0.08);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+  }
+  .ci-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+  .ci-val { font-weight: 500; font-size: 0.9rem; }
+  .contact-form { display: flex; flex-direction: column; gap: 16px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 7px; }
+  .form-group label { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 500; }
+  .form-control {
+    padding: 13px 18px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    outline: none; resize: vertical;
+  }
+  .form-control:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(232,255,71,0.08);
+    background: rgba(232,255,71,0.02);
+  }
+  .form-control::placeholder { color: rgba(112,112,160,0.5); }
+  textarea.form-control { min-height: 130px; }
+  .form-success {
+    display: none;
+    padding: 14px 18px;
+    background: rgba(232,255,71,0.08);
+    border: 1px solid rgba(232,255,71,0.3);
+    border-radius: 10px;
+    color: var(--accent);
+    font-size: 0.88rem;
+    text-align: center;
+  }
+
+  /* ─── FOOTER ──────────────────────────────── */
+  footer {
+    padding: 48px 60px;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 1.1rem; font-weight: 800;
+    color: var(--text); text-decoration: none;
+  }
+  .footer-logo span { color: var(--accent); }
+  .footer-copy { color: var(--muted); font-size: 0.82rem; }
+  .social-links { display: flex; gap: 12px; }
+  .social-link {
+    width: 38px; height: 38px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none; color: var(--muted);
+    font-size: 0.85rem;
+    transition: all 0.2s;
+  }
+  .social-link:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+  /* ─── MODAL OVERLAY ───────────────────────── */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(10,10,15,0.92);
+    backdrop-filter: blur(12px);
+    z-index: 2000;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+  .modal {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 48px 44px;
+    width: 100%; max-width: 460px;
+    position: relative;
+    transform: translateY(20px) scale(0.96);
+    transition: transform 0.3s ease;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+  }
+  .modal-overlay.open .modal { transform: translateY(0) scale(1); }
+  .modal-close {
+    position: absolute; top: 18px; right: 20px;
+    width: 32px; height: 32px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 1rem; color: var(--muted);
+    transition: all 0.2s; line-height: 1;
+  }
+  .modal-close:hover { border-color: var(--accent); color: var(--accent); }
+  .modal-logo {
+    text-align: center; margin-bottom: 8px;
+    font-family: var(--font-display);
+    font-size: 1.4rem; font-weight: 800;
+    color: var(--text);
+  }
+  .modal-logo span { color: var(--accent); }
+  .modal-subtitle { text-align: center; color: var(--muted); font-size: 0.88rem; margin-bottom: 32px; }
+  .modal-tabs {
+    display: flex; gap: 0; margin-bottom: 28px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 100px; padding: 4px;
+  }
+  .modal-tab {
+    flex: 1; padding: 9px; text-align: center;
+    font-size: 0.85rem; font-weight: 600; cursor: pointer;
+    border-radius: 100px; transition: all 0.25s;
+    color: var(--muted); font-family: var(--font-body);
+    border: none; background: transparent;
+  }
+  .modal-tab.active { background: var(--accent); color: #0a0a0f; }
+  .modal-form { display: flex; flex-direction: column; gap: 14px; }
+  .modal-form .form-group label { font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); }
+  .input-wrap { position: relative; }
+  .input-icon {
+    position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+    font-size: 0.9rem; color: var(--muted); pointer-events: none;
+  }
+  .input-wrap .form-control { padding-left: 40px; }
+  .modal-divider {
+    display: flex; align-items: center; gap: 14px;
+    color: var(--muted); font-size: 0.78rem; margin: 4px 0;
+  }
+  .modal-divider::before, .modal-divider::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+  .btn-social {
+    padding: 11px; background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; color: var(--text); font-family: var(--font-body);
+    font-size: 0.85rem; display: flex; align-items: center; justify-content: center;
+    gap: 8px; cursor: pointer; transition: all 0.2s; width: 100%;
+  }
+  .btn-social:hover { border-color: var(--accent); color: var(--accent); }
+  .modal-footer-note {
+    text-align: center; font-size: 0.75rem; color: var(--muted); margin-top: 16px;
+  }
+  .modal-footer-note a { color: var(--accent); text-decoration: none; cursor: pointer; }
+  .modal-success {
+    display: none; text-align: center; padding: 20px 0;
+  }
+  .modal-success .success-icon {
+    width: 64px; height: 64px;
+    background: rgba(232,255,71,0.1);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem; margin: 0 auto 16px;
+    border: 2px solid rgba(232,255,71,0.3);
+  }
+  .modal-success h3 { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 8px; }
+  .modal-success p { color: var(--muted); font-size: 0.88rem; }
+  .error-msg { color: #ff6b47; font-size: 0.76rem; display: none; margin-top: 2px; }
+  .form-control.error { border-color: #ff6b47; }
+
+  /* ─── USER DASHBOARD BADGE ────────────────── */
+  .user-badge {
+    display: none;
+    align-items: center; gap: 10px;
+    padding: 6px 14px 6px 6px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 100px; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .user-badge:hover { border-color: rgba(232,255,71,0.3); }
+  .user-avatar {
+    width: 28px; height: 28px;
+    background: var(--accent); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; font-weight: 800; color: #0a0a0f;
+    font-family: var(--font-display);
+  }
+  .user-name-badge { font-size: 0.82rem; font-weight: 500; }
+
+  /* ─── USER MENU DROPDOWN ──────────────────── */
+  .user-menu {
+    position: absolute; top: calc(100% + 8px); right: 0;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 8px;
+    min-width: 200px;
+    z-index: 100;
+    opacity: 0; pointer-events: none;
+    transform: translateY(-6px);
+    transition: all 0.2s;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+  .user-menu.open { opacity: 1; pointer-events: all; transform: translateY(0); }
+  .user-menu-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 12px; border-radius: 8px;
+    font-size: 0.85rem; cursor: pointer; color: var(--muted);
+    transition: all 0.15s;
+  }
+  .user-menu-item:hover { background: var(--card); color: var(--text); }
+  .user-menu-item.danger:hover { color: #ff6b47; }
+  .nav-user-wrap { position: relative; }
+
+  /* ─── ANIMATIONS ──────────────────────────── */
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: all 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ─── TOAST ───────────────────────────────── */
+  .toast {
+    position: fixed; bottom: 30px; right: 30px;
+    padding: 14px 22px;
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 12px; color: var(--text);
+    font-size: 0.88rem; z-index: 9000;
+    transform: translateY(80px) scale(0.9);
+    opacity: 0; transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    display: flex; align-items: center; gap: 10px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+  .toast.show { transform: translateY(0) scale(1); opacity: 1; }
+  .toast.success { border-color: rgba(232,255,71,0.3); }
+  .toast.error { border-color: rgba(255,107,71,0.3); }
+  .toast-icon { font-size: 1.1rem; }
+
+  /* ─── MOBILE ──────────────────────────────── */
+  .hamburger {
+    display: none; flex-direction: column; gap: 5px;
+    cursor: pointer; padding: 6px; background: none; border: none;
+  }
+  .hamburger span {
+    display: block; width: 22px; height: 2px;
+    background: var(--text); border-radius: 2px;
+    transition: all 0.3s;
+  }
+  @media (max-width: 1100px) {
+    .hero-stats { display: none; }
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 900px) {
+    nav { padding: 18px 30px; }
+    nav.scrolled { padding: 12px 30px; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    #hero { padding: 100px 30px 60px; }
+    #about { grid-template-columns: 1fr; padding: 80px 30px; gap: 48px; }
+    #services, #portfolio, #experience, #testimonials, #contact { padding: 80px 30px; }
+    .portfolio-grid { grid-template-columns: 1fr; }
+    .project-card:nth-child(n) { grid-column: span 1; }
+    .contact-wrap { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: 1fr; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 20px; text-align: center; padding: 40px 30px; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- CUSTOM CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ─── NAV ──────────────────────────────────── -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">Mulax<span></span>Prime</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Work</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-actions" id="navActions">
+    <button class="btn btn-outline" onclick="openModal('login')">Log In</button>
+    <button class="btn btn-accent" onclick="openModal('signup')">Sign Up</button>
+  </div>
+  <div class="nav-user-wrap" id="navUserWrap" style="display:none">
+    <div class="user-badge" id="userBadge" onclick="toggleUserMenu()">
+      <div class="user-avatar" id="userAvatarNav">?</div>
+      <span class="user-name-badge" id="userNameNav">User</span>
+      <span style="color:var(--muted);font-size:0.6rem;">▼</span>
+    </div>
+    <div class="user-menu" id="userMenu">
+      <div class="user-menu-item">👤 My Profile</div>
+      <div class="user-menu-item">⚙️ Settings</div>
+      <div class="user-menu-item">📁 Saved Projects</div>
+      <div class="user-menu-item danger" onclick="logout()">🚪 Log Out</div>
+    </div>
+  </div>
+  <button class="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ─── HERO ──────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-tag">✦ Available for Work</div>
+  <h1 class="hero-title">
+    Amantle Mpaekae<br>
+  </h1>
+  <p class="hero-sub">
+    Bot Developer | Python Learner | Building real tools in Botswana
+  </p>
+  <div class="hero-actions">
+    <a href="#portfolio" class="btn btn-accent btn-lg">View My Work ↓</a>
+    <a href="#contact" class="btn btn-outline btn-lg">Let's Talk</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <span class="stat-num stat-accent">02<span style="font-size:1.5rem;">+</span></span>
+      <span class="stat-label">Projects Done</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">00<span style="font-size:1.5rem;">+</span></span>
+      <span class="stat-label">Happy Clients</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num stat-accent">02<span style="font-size:1.5rem;">+</span></span>
+      <span class="stat-label">Years Experience</span>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- ─── ABOUT ─────────────────────────────────── -->
+<section id="about">
+  <div class="about-img-wrap reveal">
+    <div class="about-img-frame">
+      <img src="img\hello.jpeg" style="width:100%;height:100%;object-fit:cover"> 
+      <div class="about-img-placeholder">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+        <span style="font-size:0.72rem;opacity:0.5;">Recommended: 800×1000px</span>
+      </div>
+    </div>
+    <div class="about-corner">
+      <span class="num">02<span style="font-size:1.2rem">+</span></span>
+      <span class="lbl">Years of Experience</span>
+    </div>
+  </div>
+  <div class="about-content reveal">
+    <div class="section-tag">About Me</div>
+    <h2 class="section-title">The Person<br>Behind the Work</h2>
+    <div class="about-bio">
+      <p> Hi! My name is Amantle Mpaekae, I am a self taught Python developer based in Botswana who builds real tools like voice assistants and bots that helps students learn and businesses serve their customers better.</p>
+      <p><!-- FILL IN: Paragraph 2 — What drives you? Your passion, approach, philosophy. --></p>
+      <p><!-- FILL IN: Paragraph 3 — Personal touch — hobbies, what you do outside work. --></p>
+    </div>
+    <div class="skills-list">
+      <span class="skill-tag">Python</span>
+      <span class="skill-tag">Bot Developer</span>
+      <span class="skill-tag">HTML</span>
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+      <a href="#contact" class="btn btn-accent">Hire Me</a>
+      <!-- FILL IN: Link to your CV/resume PDF -->
+      <a href="[LINK-TO-CV.pdf]" class="btn btn-outline" download>Download CV ↓</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SERVICES ──────────────────────────────── -->
+<section id="services">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-tag">What I Offer</div>
+      <h2 class="section-title">Services &<br>Expertise</h2>
+    </div>
+    <a href="#contact" class="btn btn-outline" style="align-self:flex-end">Work with me →</a>
+  </div>
+  <div class="services-grid">
+    <!-- Service 1 -->
+    <div class="service-card reveal">
+      <div class="service-icon">✦</div>
+      <div class="service-num">01</div>
+      <h3 class="service-name">Bot Development</h3>
+      <p class="service-desc">Telegram Bots, WhatsApp bots (Python)</p>
+    </div>
+    <!-- Service 2 -->
+    <div class="service-card reveal">
+      <div class="service-icon">✦</div>
+      <div class="service-num">02</div>
+      <h3 class="service-name">Voice Assistants</h3>
+      <p class="service-desc">Like Mothusi, Python-based desktop assistants </p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PORTFOLIO ─────────────────────────────── -->
+<section id="portfolio">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-tag">Portfolio</div>
+      <h2 class="section-title">Selected<br>Projects</h2>
+    </div>
+  </div>
+  <div class="portfolio-filter reveal">
+    <button class="filter-btn active" onclick="filterProjects(this,'all')">All</button>
+    <button class="filter-btn" onclick="filterProjects(this,'voice')">Asistant</button>
+    <button class="filter-btn" onclick="filterProjects(this,'Bot')">Telegram Bot</button>
+    <button class="filter-btn" onclick="filterProjects(this,'Com')">Coming Soon</button>
+    <!-- FILL IN: Add/remove filter categories to match your work -->
+  </div>
+  <div class="portfolio-grid" id="projectGrid">
+    <!-- Project 1 (Large) -->
+    <div class="project-card" data-cat="voice">
+      <div class="project-thumb">
+        <img src="img\project.jpeg" style="width:100%;height:100%;object-fit:cover"> 
+        <div class="project-thumb-placeholder">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" stroke-width="1.5"/><path d="M3 9h18" stroke-width="1.5"/></svg>
+          <span>Project Screenshot</span>
+        </div>
+        <div class="project-overlay"><a href="#" class="view-btn">View Project →</a></div>
+      </div>
+      <div class="project-info">
+        <div class="project-cats"><span class="project-cat">Voice</span><span class="project-cat"></span></div>
+        <h3 class="project-name">Mothusi - A voice Assistant</h3>
+        <p class="project-brief"><!-- FILL IN: One-line description --></p>
+      </div>
+    </div>
+    <!-- Project 2 -->
+    <div class="project-card" data-cat="Bot">
+      <div class="project-thumb">
+        <img src="img\p2.jpeg" style="width:100%;height:100%;object-fit:cover"> 
+        <div class="project-thumb-placeholder">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" stroke-width="1.5"/><path d="M3 9h18" stroke-width="1.5"/></svg>
+          <span>Project Screenshot</span>
+        </div>
+        <div class="project-overlay"><a href="#" class="view-btn">View Project →</a></div>
+      </div>
+      <div class="project-info">
+        <div class="project-cats"><span class="project-cat">Bot</span></div>
+        <h3 class="project-name">Telegram Bot</h3>
+        <p class="project-brief">A bot Hosted in Telegram which is rich on chat , music stream , text to aduio</p>
+      </div>
+    </div>
+    <!-- Project 3 -->
+    <div class="project-card" data-cat="Com">
+      <div class="project-thumb">
+        <img src="img\3.jpeg" style="width:100%;height:100%;object-fit:cover">
+        <div class="project-thumb-placeholder">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" stroke-width="1.5"/><path d="M3 9h18" stroke-width="1.5"/></svg>
+          <span>Project Screenshot</span>
+        </div>
+        <div class="project-overlay"><a href="#" class="view-btn">View Project →</a></div>
+      </div>
+      <div class="project-info">
+        <div class="project-cats"><span class="project-cat">Coming Soon</span></div>
+        <h3 class="project-name">Health Check</h3>
+        <p class="project-brief"><!-- FILL IN --></p>
+      </div>
+    </div>
+    <!-- Add up to 6 projects total -->
+  </div>
+</section>
+
+<!-- ─── EXPERIENCE ────────────────────────────── -->
+<section id="experience">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start" class="exp-grid">
+    <div class="reveal">
+      <div class="section-tag">School Attendent</div>
+      <h2 class="section-title">Work<br>Experience</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-period">2013 —2016</div>
+          <h3 class="timeline-role">Student</h3>
+          <div class="timeline-company">Nkoyaphiri Primary   School </div>
+          <p class="timeline-desc">I went there for 3 years and grabbed many knowledge  from the school</p>
+        </div>
+         <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-period">2016 — 2020</div>
+          <h3 class="timeline-role">Student</h3>
+          <div class="timeline-company">Lesirane Primary  School</div>
+          <p class="timeline-desc">I went there for 2 years and learnt that collaboration is everything as i helped students in terms of assigments </p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-period">2021 — 2023</div>
+          <h3 class="timeline-role">Student</h3>
+          <div class="timeline-company">Gabane Junior Seondary  School</div>
+          <p class="timeline-desc">I went there for 2 years and learnt that people are different and the importance of treating people fairly and animals  </p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-period">2024 —2025</div>
+          <h3 class="timeline-role">Student</h3>
+          <div class="timeline-company">Gaborone Senior  Seondary  School </div>
+          <p class="timeline-desc">I went there for 2 years and grabbed many knowledge  from the school and my jounery of Python started there</p>
+        </div>
+
+      
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="section-tag">Learning</div>
+      <h2 class="section-title">Top entry<br>On going </h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-period">2025 — Present</div>
+          <h3 class="timeline-role">Bot Developer | Self-Taught Python</h3>
+          <div class="timeline-company">Mulax Prime</div>
+          <p class="timeline-desc">Mulax Prime - Building production voice assistants and Whatsapp bots </p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-period">April 2026</div>
+          <h3 class="timeline-role">Mothusi Voice Assistant -Full Release</h3>
+          <div class="timeline-company">Mulax Prime</div>
+          <p class="timeline-desc">Compiled Python voice assistant for Botswana Computer Studies students using Groq AI , SpeechRecognition and PyInstaller</p>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIALS ──────────────────────────── -->
+<section id="testimonials">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-tag">Social Proof</div>
+      <h2 class="section-title">What Clients<br>Say</h2>
+    </div>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card reveal">
+      <div class="t-quote">"</div>
+      <p class="t-text">Tested Mothusi and rated it 5\5</p>
+      <div class="t-author">
+        <div class="t-avatar">A</div><!-- Replace with client initials -->
+        <div>
+          <div class="t-stars">★★★★★</div>
+          <div class="t-name">Phemelo Mogorosi</div>
+          <div class="t-title">Former Student at Gaborone High School, Tested Mothusi</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal">
+      <div class="t-quote">"</div>
+      <p class="t-text"> Bought a Whatapp bot and enjoyed the features on it</p>
+      <div class="t-author">
+        <div class="t-avatar">B</div>
+        <div>
+          <div class="t-stars">★★★★</div>
+          <div class="t-name">Bakang Collen</div>
+          <div class="t-title">Happy Satisfed Customer</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal">
+      <div class="t-quote">"</div>
+      <p class="t-text">Collaborated with  the self Learner from Nigeria and helped him with Bots and voice assistant</p>
+      <div class="t-author">
+        <div class="t-avatar">C</div>
+        <div>
+          <div class="t-stars">★★★★★</div>
+          <div class="t-name">Beyond </div>
+          <div class="t-title">Self learner , Gojo Tech</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ───────────────────────────────── -->
+<section id="contact">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-tag">Get In Touch</div>
+      <h2 class="section-title">Let's Work<br>Together</h2>
+    </div>
+  </div>
+  <div class="contact-wrap">
+    <div class="reveal">
+      <p style="color:var(--muted);line-height:1.8;margin-bottom:10px;">
+        Want to work with Mulax Prime feel free to  contact us here
+      </p>
+      <div class="contact-info-list">
+        <div class="contact-info-item">
+          <div class="ci-icon">📧</div>
+          <div>
+            <div class="ci-label">Email</div>
+            <!-- FILL IN -->
+            <div class="ci-val"><a href="mailto:you@email.com" style="color:var(--text);text-decoration:none;">amantlempaekae@email.com</a></div>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="ci-icon">📍</div>
+          <div>
+            <div class="ci-label">Location</div>
+            <!-- FILL IN -->
+            <div class="ci-val">Gaborone, Botswana</div>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="ci-icon">📱</div>
+          <div>
+            <div class="ci-label">Phone / WhatsApp</div>
+            <!-- FILL IN -->
+            <div class="ci-val"><a href="tel:+267 75462914" style="color:var(--text);text-decoration:none;">+267 75462914</a></div>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="ci-icon">⏰</div>
+          <div>
+            <div class="ci-label">Availability</div>
+            <div class="ci-val">Mon–Fri, 9AM–6PM GMT</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <form class="contact-form" onsubmit="sendMessage(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Your Name</label>
+            <input class="form-control" type="text" placeholder="John Doe" required>
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input class="form-control" type="email" placeholder="john@email.com" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Subject</label>
+          <input class="form-control" type="text" placeholder="Project Inquiry" required>
+        </div>
+        <div class="form-group">
+          <label>Budget Range (optional)</label>
+          <select class="form-control">
+            <option value="">Select a range...</option>
+            <option>Under $500</option>
+            <option>$500 – $2,000</option>
+            <option>$2,000 – $5,000</option>
+            <option>$5,000 – $10,000</option>
+            <option>$10,000+</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea class="form-control" placeholder="Tell me about your project..."></textarea>
+        </div>
+        <div class="form-success" id="formSuccess">
+          ✓ Message sent! I'll get back to you within 24 hours.
+        </div>
+        <button type="submit" class="btn btn-accent btn-lg" style="width:100%;justify-content:center">
+          Send Message →
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────────── -->
+<footer>
+  <a href="#hero" class="footer-logo">Mulax<span>.</span>Prime</a>
+  <p class="footer-copy">© 2026 Mulax Prime · All rights reserved · Made with ♥</p>
+  <div class="social-links">
+    <!-- FILL IN: Replace # with your actual social links -->
+    <a class="social-link" href="[LINKEDIN URL]" target="_blank" title="LinkedIn">in</a>
+    <a class="social-link" href="https://github.com/romeobwiii" target="_blank" title="GitHub">gh</a>
+    <a class="social-link" href="https://x.com/mulaxprime" target="_blank" title="Twitter">𝕏</a>
+    <a class="social-link" href="https://instagram.com/romeobwiii" target="_blank" title="Instagram">ig</a>
+    <!-- Add/remove as needed: Dribbble (dr), Behance (be), YouTube (yt) -->
+  </div>
+</footer>
+
+<!-- ─── AUTH MODAL ─────────────────────────────── -->
+<div class="modal-overlay" id="authModal" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-logo">Mulax<span></span>Prime</div>
+    <div class="modal-subtitle" id="modalSubtitle">Welcome back! Sign in to your account.</div>
+
+    <div class="modal-tabs">
+      <button class="modal-tab active" id="tabLogin" onclick="switchTab('login')">Log In</button>
+      <button class="modal-tab" id="tabSignup" onclick="switchTab('signup')">Sign Up</button>
+    </div>
+
+    <!-- LOGIN FORM -->
+    <div id="loginForm">
+      <div class="modal-form">
+        <div class="form-group">
+          <label>Email Address</label>
+          <div class="input-wrap">
+            <span class="input-icon">✉</span>
+            <input class="form-control" type="email" id="loginEmail" placeholder="you@email.com" autocomplete="email">
+          </div>
+          <span class="error-msg" id="loginEmailErr">Please enter a valid email.</span>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <div class="input-wrap">
+            <span class="input-icon">🔒</span>
+            <input class="form-control" type="password" id="loginPass" placeholder="Your password" autocomplete="current-password">
+          </div>
+          <span class="error-msg" id="loginPassErr">Password is incorrect.</span>
+        </div>
+        <div style="display:flex;justify-content:flex-end;margin-top:-4px">
+          <a href="#" style="color:var(--accent);font-size:0.78rem;text-decoration:none" onclick="showForgot()">Forgot password?</a>
+        </div>
+        <button class="btn btn-accent" style="width:100%;justify-content:center;padding:13px" onclick="handleLogin()">
+          Log In →
+        </button>
+        <div class="modal-divider">or continue with</div>
+        <button class="btn-social" onclick="socialLogin('Google')">
+          <span>🌐</span> Continue with Google
+        </button>
+      </div>
+      <div class="modal-footer-note">
+        Don't have an account? <a onclick="switchTab('signup')">Sign up free</a>
+      </div>
+    </div>
+
+    <!-- SIGNUP FORM -->
+    <div id="signupForm" style="display:none">
+      <div class="modal-form">
+        <div class="form-row" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="form-group">
+            <label>First Name</label>
+            <input class="form-control" type="text" id="signupFirst" placeholder="John">
+            <span class="error-msg" id="signupFirstErr">Required.</span>
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input class="form-control" type="text" id="signupLast" placeholder="Doe">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <div class="input-wrap">
+            <span class="input-icon">✉</span>
+            <input class="form-control" type="email" id="signupEmail" placeholder="you@email.com">
+          </div>
+          <span class="error-msg" id="signupEmailErr">Please enter a valid email.</span>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <div class="input-wrap">
+            <span class="input-icon">🔒</span>
+            <input class="form-control" type="password" id="signupPass" placeholder="Min. 8 characters" oninput="checkPassStrength(this.value)">
+          </div>
+          <span class="error-msg" id="signupPassErr">Password must be at least 8 characters.</span>
+          <div id="passStrength" style="height:3px;border-radius:3px;background:var(--border);margin-top:6px;overflow:hidden">
+            <div id="passStrengthBar" style="height:100%;width:0;background:var(--accent);transition:all 0.3s"></div>
+          </div>
+          <span id="passStrengthLabel" style="font-size:0.7rem;color:var(--muted)"></span>
+        </div>
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <div class="input-wrap">
+            <span class="input-icon">🔒</span>
+            <input class="form-control" type="password" id="signupConfirm" placeholder="Repeat password">
+          </div>
+          <span class="error-msg" id="signupConfirmErr">Passwords do not match.</span>
+        </div>
+        <button class="btn btn-accent" style="width:100%;justify-content:center;padding:13px" onclick="handleSignup()">
+          Create Account →
+        </button>
+        <div class="modal-divider">or sign up with</div>
+        <button class="btn-social" onclick="socialLogin('Google')">
+          <span>🌐</span> Continue with Google
+        </button>
+      </div>
+      <div class="modal-footer-note">
+        Already have an account? <a onclick="switchTab('login')">Log in</a>
+      </div>
+    </div>
+
+    <!-- SUCCESS STATE -->
+    <div class="modal-success" id="modalSuccess">
+      <div class="success-icon">✓</div>
+      <h3 id="successTitle">Welcome back!</h3>
+      <p id="successMsg">You're now signed in.</p>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span class="toast-icon" id="toastIcon">✓</span>
+  <span id="toastMsg">Done!</span>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+// DATA STORE (localStorage simulated auth)
+// ══════════════════════════════════════════
+const Store = {
+  getUsers: () => JSON.parse(localStorage.getItem('pf_users') || '[]'),
+  saveUsers: (u) => localStorage.setItem('pf_users', JSON.stringify(u)),
+  getSession: () => JSON.parse(localStorage.getItem('pf_session') || 'null'),
+  saveSession: (u) => localStorage.setItem('pf_session', JSON.stringify(u)),
+  clearSession: () => localStorage.removeItem('pf_session')
+};
+
+// ══════════════════════════════════════════
+// CURSOR
+// ══════════════════════════════════════════
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+function animateCursor() {
+  rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+  cursor.style.left = (mx - 6) + 'px'; cursor.style.top = (my - 6) + 'px';
+  ring.style.left = (rx) + 'px'; ring.style.top = (ry) + 'px';
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+document.querySelectorAll('a,button,.btn,.project-card,.service-card,.social-link').forEach(el => {
+  el.addEventListener('mouseenter', () => { cursor.style.transform = 'scale(2.5)'; ring.style.transform = 'translate(-50%,-50%) scale(1.4)'; });
+  el.addEventListener('mouseleave', () => { cursor.style.transform = 'scale(1)'; ring.style.transform = 'translate(-50%,-50%) scale(1)'; });
+});
+
+// ══════════════════════════════════════════
+// NAV SCROLL EFFECT
+// ══════════════════════════════════════════
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ══════════════════════════════════════════
+// SCROLL REVEAL
+// ══════════════════════════════════════════
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      revealObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+// timeline reveal
+const tlObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); tlObs.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.timeline-item').forEach(el => tlObs.observe(el));
+
+// ══════════════════════════════════════════
+// PORTFOLIO FILTER
+// ══════════════════════════════════════════
+function filterProjects(btn, cat) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.project-card').forEach(card => {
+    const show = cat === 'all' || card.dataset.cat === cat;
+    card.style.transition = 'opacity 0.3s, transform 0.3s';
+    card.style.opacity = show ? '1' : '0.15';
+    card.style.transform = show ? 'scale(1)' : 'scale(0.97)';
+    card.style.pointerEvents = show ? 'auto' : 'none';
+  });
+}
+
+// ══════════════════════════════════════════
+// CONTACT FORM
+// ══════════════════════════════════════════
+function sendMessage(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('button[type=submit]');
+  btn.textContent = 'Sending...'; btn.disabled = true;
+  setTimeout(() => {
+    document.getElementById('formSuccess').style.display = 'block';
+    btn.textContent = '✓ Sent!';
+    showToast('success', '✓', 'Message sent! I\'ll be in touch soon.');
+    e.target.reset();
+    setTimeout(() => {
+      document.getElementById('formSuccess').style.display = 'none';
+      btn.textContent = 'Send Message →'; btn.disabled = false;
+    }, 4000);
+  }, 1400);
+}
+
+// ══════════════════════════════════════════
+// AUTH MODAL
+// ══════════════════════════════════════════
+function openModal(tab) {
+  document.getElementById('authModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  switchTab(tab || 'login');
+  clearErrors();
+}
+function closeModal() {
+  document.getElementById('authModal').classList.remove('open');
+  document.body.style.overflow = '';
+  setTimeout(resetModalSuccess, 300);
+}
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('authModal')) closeModal();
+}
+function switchTab(tab) {
+  const isLogin = tab === 'login';
+  document.getElementById('tabLogin').classList.toggle('active', isLogin);
+  document.getElementById('tabSignup').classList.toggle('active', !isLogin);
+  document.getElementById('loginForm').style.display = isLogin ? 'block' : 'none';
+  document.getElementById('signupForm').style.display = !isLogin ? 'block' : 'none';
+  document.getElementById('modalSuccess').style.display = 'none';
+  document.getElementById('modalSubtitle').textContent = isLogin ? 'Welcome back! Sign in to your account.' : 'Create your free account today.';
+  clearErrors();
+}
+function clearErrors() {
+  document.querySelectorAll('.error-msg').forEach(e => e.style.display = 'none');
+  document.querySelectorAll('.form-control.error').forEach(e => e.classList.remove('error'));
+}
+function showError(id, inputId) {
+  document.getElementById(id).style.display = 'block';
+  if (inputId) document.getElementById(inputId).classList.add('error');
+}
+
+// LOGIN
+function handleLogin() {
+  clearErrors();
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass = document.getElementById('loginPass').value;
+  let valid = true;
+  if (!email || !email.includes('@')) { showError('loginEmailErr', 'loginEmail'); valid = false; }
+  if (!pass) { showError('loginPassErr', 'loginPass'); valid = false; }
+  if (!valid) return;
+  const users = Store.getUsers();
+  const user = users.find(u => u.email === email && u.password === pass);
+  if (!user) {
+    showError('loginPassErr', 'loginPass');
+    document.getElementById('loginPassErr').textContent = 'Invalid email or password.';
+    return;
+  }
+  Store.saveSession(user);
+  showModalSuccess('Welcome back, ' + user.first + '! 👋', 'You\'re now logged in.');
+  setTimeout(() => { closeModal(); updateNavUser(user); showToast('success', '✓', 'Signed in as ' + user.first); }, 1500);
+}
+
+// SIGNUP
+function handleSignup() {
+  clearErrors();
+  const first = document.getElementById('signupFirst').value.trim();
+  const email = document.getElementById('signupEmail').value.trim();
+  const pass = document.getElementById('signupPass').value;
+  const confirm = document.getElementById('signupConfirm').value;
+  let valid = true;
+  if (!first) { showError('signupFirstErr', 'signupFirst'); valid = false; }
+  if (!email || !email.includes('@')) { showError('signupEmailErr', 'signupEmail'); valid = false; }
+  if (pass.length < 8) { showError('signupPassErr', 'signupPass'); valid = false; }
+  if (pass !== confirm) { showError('signupConfirmErr', 'signupConfirm'); valid = false; }
+  if (!valid) return;
+  const users = Store.getUsers();
+  if (users.find(u => u.email === email)) {
+    showError('signupEmailErr', 'signupEmail');
+    document.getElementById('signupEmailErr').textContent = 'Email already registered.';
+    return;
+  }
+  const last = document.getElementById('signupLast').value.trim();
+  const newUser = { first, last, email, password: pass, created: Date.now() };
+  users.push(newUser);
+  Store.saveUsers(users);
+  Store.saveSession(newUser);
+  showModalSuccess('Account created! 🎉', 'Welcome to the portfolio, ' + first + '!');
+  setTimeout(() => { closeModal(); updateNavUser(newUser); showToast('success', '✓', 'Welcome, ' + first + '!'); }, 1500);
+}
+
+// SOCIAL LOGIN
+function socialLogin(provider) {
+  showToast('success', 'ℹ', provider + ' sign-in coming soon!');
+}
+
+// FORGOT PASSWORD
+function showForgot() {
+  showToast('success', '📧', 'Reset link sent! Check your inbox.');
+}
+
+// PASSWORD STRENGTH
+function checkPassStrength(val) {
+  const bar = document.getElementById('passStrengthBar');
+  const lbl = document.getElementById('passStrengthLabel');
+  let strength = 0;
+  if (val.length >= 8) strength++;
+  if (/[A-Z]/.test(val)) strength++;
+  if (/[0-9]/.test(val)) strength++;
+  if (/[^A-Za-z0-9]/.test(val)) strength++;
+  const colors = ['#ff6b47','#ff6b47','#ffaa47','#e8ff47','#7dff47'];
+  const labels = ['','Weak','Fair','Good','Strong'];
+  bar.style.width = (strength * 25) + '%';
+  bar.style.background = colors[strength];
+  lbl.textContent = labels[strength];
+}
+
+// MODAL SUCCESS STATE
+function showModalSuccess(title, msg) {
+  document.getElementById('loginForm').style.display = 'none';
+  document.getElementById('signupForm').style.display = 'none';
+  document.getElementById('modalSuccess').style.display = 'block';
+  document.getElementById('successTitle').textContent = title;
+  document.getElementById('successMsg').textContent = msg;
+}
+function resetModalSuccess() {
+  document.getElementById('modalSuccess').style.display = 'none';
+}
+
+// ══════════════════════════════════════════
+// USER SESSION
+// ══════════════════════════════════════════
+function updateNavUser(user) {
+  document.getElementById('navActions').style.display = 'none';
+  document.getElementById('navUserWrap').style.display = 'block';
+  document.getElementById('userBadge').style.display = 'flex';
+  document.getElementById('userAvatarNav').textContent = (user.first[0] + (user.last ? user.last[0] : '')).toUpperCase();
+  document.getElementById('userNameNav').textContent = user.first + ' ' + (user.last || '');
+}
+function logout() {
+  Store.clearSession();
+  document.getElementById('navActions').style.display = 'flex';
+  document.getElementById('navUserWrap').style.display = 'none';
+  document.getElementById('userMenu').classList.remove('open');
+  showToast('success', '👋', 'Logged out successfully.');
+}
+function toggleUserMenu() {
+  document.getElementById('userMenu').classList.toggle('open');
+}
+document.addEventListener('click', e => {
+  const wrap = document.getElementById('navUserWrap');
+  if (wrap && !wrap.contains(e.target)) document.getElementById('userMenu').classList.remove('open');
+});
+
+// CHECK SESSION ON LOAD
+(function() {
+  const session = Store.getSession();
+  if (session) updateNavUser(session);
+})();
+
+// ══════════════════════════════════════════
+// TOAST
+// ══════════════════════════════════════════
+let toastTimer;
+function showToast(type, icon, msg) {
+  const t = document.getElementById('toast');
+  clearTimeout(toastTimer);
+  t.className = 'toast ' + type;
+  document.getElementById('toastIcon').textContent = icon;
+  document.getElementById('toastMsg').textContent = msg;
+  requestAnimationFrame(() => t.classList.add('show'));
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+// ══════════════════════════════════════════
+// MOBILE MENU
+// ══════════════════════════════════════════
+function toggleMobileMenu() {
+  const links = document.querySelector('.nav-links');
+  const isOpen = links.style.display === 'flex';
+  links.style.display = isOpen ? '' : 'flex';
+  if (!isOpen) {
+    links.style.flexDirection = 'column';
+    links.style.position = 'absolute';
+    links.style.top = '100%';
+    links.style.left = '0'; links.style.right = '0';
+    links.style.background = 'rgba(10,10,15,0.97)';
+    links.style.padding = '20px 30px 30px';
+    links.style.borderBottom = '1px solid var(--border)';
+  }
+}
+
+// ══════════════════════════════════════════
+// ESC KEY
+// ══════════════════════════════════════════
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
