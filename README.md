@@ -25,7 +25,7 @@ I don't learn from tutorials. I learn by building tools that solve real problems
 - Creator of **Mothusi** — an AI tutor for BGCSE Computer Studies students, now at **V3.1**
 - Creator of **Tsela** — an offline, on-device AI admissions assistant for Botswana university applicants, built for ADTC 2026
 - Creator of **Mpho** — a Telegram bot with AI chat, TTS, and YouTube streaming
-- Currently expanding into full-stack web development — HTML, CSS (Flexbox), and JavaScript — to bring Mothusi to the browser
+- Currently expanding into full-stack web development — Flask, HTML, CSS (Flexbox), and JavaScript — to bring Mothusi to the browser
 - Ranked **#1 contributor in Botswana** on Gitista's open source leaderboard
 
 ---
@@ -34,6 +34,7 @@ I don't learn from tutorials. I learn by building tools that solve real problems
   <h2>Languages & Tools</h2>
 
   ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+  ![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)
   ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
   ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
   ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
@@ -49,32 +50,42 @@ I don't learn from tutorials. I learn by building tools that solve real problems
 ---
 
 <div align="center">
-  <h2>Skills Progress</h2>
+  <h2>Skills</h2>
 </div>
 
-| Topic | Status |
-|---|---|
-| Variables & Data Types | Done |
-| Functions & Loops | Done |
-| OOP — Classes, Instances, Inheritance | Done |
-| Modular Architecture | Done |
-| Error Handling | Done |
-| File Handling & JSON | Done |
-| API Integration (Groq) | Done |
-| GUI Development (tkinter) | Done |
-| Threading | Done |
-| Voice — Speech Recognition & TTS | Done |
-| PyInstaller Packaging | Done |
-| Local LLM Deployment (llama.cpp, GGUF quantization) | Done |
-| HTML Structure | Done |
-| CSS Box Model | Done |
-| CSS Flexbox | Done |
-| CSS Colors, Fonts, Backgrounds | Done |
-| Deployment (Vercel) | Done |
-| JavaScript Fundamentals | In Progress |
-| JavaScript (Fetch API) | Planned |
-| Embeddings & Real RAG (vector search) | Planned |
-| FastAPI Backend | Planned |
+**Core & AI**
+
+![Variables & Data Types](https://img.shields.io/badge/Variables_%26_Data_Types-✔-2ea043?style=flat-square)
+![Functions & Loops](https://img.shields.io/badge/Functions_%26_Loops-✔-2ea043?style=flat-square)
+![OOP](https://img.shields.io/badge/OOP-✔-2ea043?style=flat-square)
+![Modular Architecture](https://img.shields.io/badge/Modular_Architecture-✔-2ea043?style=flat-square)
+![Error Handling](https://img.shields.io/badge/Error_Handling-✔-2ea043?style=flat-square)
+![File Handling & JSON](https://img.shields.io/badge/File_Handling_%26_JSON-✔-2ea043?style=flat-square)
+![API Integration](https://img.shields.io/badge/API_Integration_(Groq)-✔-2ea043?style=flat-square)
+![Local LLM Deployment](https://img.shields.io/badge/Local_LLM_(llama.cpp%2C_GGUF)-✔-2ea043?style=flat-square)
+
+**Interfaces & Voice**
+
+![GUI](https://img.shields.io/badge/GUI_(tkinter)-✔-2ea043?style=flat-square)
+![Threading](https://img.shields.io/badge/Threading-✔-2ea043?style=flat-square)
+![Voice](https://img.shields.io/badge/Speech_Recognition_%26_TTS-✔-2ea043?style=flat-square)
+![PyInstaller](https://img.shields.io/badge/PyInstaller_Packaging-✔-2ea043?style=flat-square)
+
+**Web**
+
+![HTML](https://img.shields.io/badge/HTML_Structure-✔-2ea043?style=flat-square)
+![CSS Box Model](https://img.shields.io/badge/CSS_Box_Model-✔-2ea043?style=flat-square)
+![CSS Flexbox](https://img.shields.io/badge/CSS_Flexbox-✔-2ea043?style=flat-square)
+![CSS Styling](https://img.shields.io/badge/CSS_Colors%2C_Fonts%2C_Backgrounds-✔-2ea043?style=flat-square)
+![Deployment](https://img.shields.io/badge/Deployment_(Vercel)-✔-2ea043?style=flat-square)
+![JS Fundamentals](https://img.shields.io/badge/JavaScript_Fundamentals-✔-2ea043?style=flat-square)
+![Fetch API](https://img.shields.io/badge/JavaScript_(Fetch_API)-✔-2ea043?style=flat-square)
+![Flask](https://img.shields.io/badge/Flask_Backend-in_progress-dbab09?style=flat-square)
+
+**Next up**
+
+![RAG](https://img.shields.io/badge/Embeddings_%26_Real_RAG-planned-8b949e?style=flat-square)
+![FastAPI](https://img.shields.io/badge/FastAPI_Backend-planned-8b949e?style=flat-square)
 
 ---
 
@@ -84,7 +95,7 @@ I don't learn from tutorials. I learn by building tools that solve real problems
 
 **Tsela** — An offline, on-device AI assistant answering university admissions questions for six Botswana institutions (UB, BIUST, BA ISAGO, Botho, Limkokwing, BSBS/BAC). Built and tested entirely on a consumer laptop with no GPU. Runs a quantized Qwen2.5-1.5B-Instruct model via llama.cpp, with a verified knowledge base and a deterministic lookup that bypasses the model for high-stakes facts like points requirements — preventing hallucination on the numbers that matter most. Submitted to the Africa Deep Tech Challenge 2026.
 
-**Mothusi V3.1** — AI-powered tutor for BGCSE Computer Studies students in Botswana. Built with a full tkinter GUI, Groq-powered AI responses, voice input/output, student login and registration, quiz mode with scoring, and auto-saved sessions. Open source on GitHub under MIT license, and independently tested by other Botswana developers.
+**Mothusi V3.1** — AI-powered tutor for BGCSE Computer Studies students in Botswana. Built with a full tkinter GUI, Groq-powered AI responses, voice input/output, student login and registration, quiz mode with scoring, and auto-saved sessions. Open source on GitHub under MIT license, and independently tested by other Botswana developers. Currently being ported to the browser with Flask.
 
 **Mpho** — Telegram bot with AI chat powered by Groq, text-to-speech via gTTS, and YouTube music streaming.
 
@@ -112,6 +123,7 @@ I don't learn from tutorials. I learn by building tools that solve real problems
   </a>
   <p>#1 contributor in Botswana on Gitista's open source leaderboard (verified Aug 2026). Click through for current live rank.</p>
 </div>
+
 ---
 
 <div align="center">
